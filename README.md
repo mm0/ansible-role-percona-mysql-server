@@ -4,9 +4,7 @@
 
 An Ansible role that installs and configured Percona MySQL Server
 
-See Also: ansible-role-sudo, ansible-role-bash, ansible-role-user
-
-![travis-ci](https://travis-ci.org/mm0/ansible-role-bash.svg?branch=master)
+![travis-ci](https://travis-ci.org/mm0/ansible-role-percona-mysql-server.svg?branch=master)
 
 ## Requirements
 
