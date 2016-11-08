@@ -5,12 +5,8 @@
   apt_key: file=/tmp/percona-gpg-key
   become: yes
 
-- name: Update apt cache
-  apt: update_cache=yes
-  become: yes
-
 - name: Setup percona repository
-  apt_repository: repo='{{ item }}' state=present update_cache=yes
+  apt_repository: repo="{{ item }}" state=present update_cache=yes
   become: yes
   with_items:
     - deb http://repo.percona.com/apt trusty main
@@ -20,7 +16,7 @@
   apt: package="{{ item }}" state=present
   become: yes
   with_items:
-    - percona-xtradb-cluster-server-5.5
+    - percona-xtradb-cluster-55
     - percona-toolkit
 
 - name: Send percona my.cnf
