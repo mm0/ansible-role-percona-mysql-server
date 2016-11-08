@@ -16,6 +16,7 @@
   apt: package="{{ item }}" state=present
   become: yes
   with_items:
+    - percona-xtradb-cluster-server-5.5
     - percona-xtradb-cluster-55
     - percona-toolkit
 
