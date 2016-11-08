@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  author: Matt Margolin
+  description: "
+    An Ansible role that installs and configures Percona MySQL Server
+"
+  company: 
+  license: MIT
+  min_ansible_version: 2.0
+  platforms:
+  - name: All
+    versions:
+    - all
+  galaxy_tags:
+dependencies:
+

@@ -1,0 +1,9 @@
+- hosts: all
+  vars:
+    users:
+      travis:
+        state: present
+        groups:  sudo,travis
+        sudo: "ALL=(ALL) NOPASSWD: ALL"
+  roles:
+  - ansible-role-percona-mysql-server

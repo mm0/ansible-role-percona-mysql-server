@@ -1,0 +1,73 @@
+- name: Copy percona GPG key
+  copy: src=percona-gpg-key dest=/tmp/percona-gpg-key 
+
+- name: Add to apt-key
+  apt_key: file=/tmp/percona-gpg-key
+
+- name: Update apt cache
+  apt: update_cache=yes
+
+- name: Setup percona repository
+  apt_repository: repo='{{ item }}' state=present update_cache=yes
+  with_items:
+    - deb http://repo.percona.com/apt trusty main
+    - deb-src http://repo.percona.com/apt trusty main
+
+- name: Install percona-xtradb-cluster-server-5.5 & toolkit
+  apt: package="{{ item }}" state=present
+  with_items:
+    - percona-xtradb-cluster-server-5.5
+    - percona-toolkit
+
+- name: Send percona my.cnf
+  template: src=my.cnf.j2 dest=/etc/mysql/my.cnf 
+
+- name: Send mysqlchk
+  template: src=mysqlchk.j2 dest=/etc/xinetd.d/mysqlchk
+
+- name: Add port to /etc/services
+  lineinfile: 
+    line: |
+      mysqlchk        {{ clustercheck_port }}/tcp                        # Check PXC Cluster Health" 
+    dest: /etc/services 
+    state: present
+
+- name: Create writeable log file for clustercheck
+  file: dest=/var/log/clustercheck.log owner=root group=root mode=0666 state=touch
+
+- name: Stop percona if running
+  service: name=mysql state=stopped
+
+- name: Remove mysql dir if exists
+  file: state=absent dest=/var/lib/mysql/mysql
+
+- name: Reset mysql db
+  shell: mysql_install_db
+
+- name: Start db to be able to set passwords
+  shell: /etc/init.d/mysql bootstrap-pxc 
+
+- name: update mysql root password for all root accounts
+  mysql_user: name=root host={{ item }} password={{ mysql_root_password }} login_user="root" login_password="" priv=*.*:ALL,GRANT 
+  with_items:
+    - 127.0.0.1
+    - ::1 
+    - localhost
+    #- "{{ ansible_hostname }}"
+  tags: mysql
+
+- name: Create mysql users
+  mysql_user: name={{ item.name }} password={{ item.password }} state=present priv="{{ item.priv }}" host={{ item.host }} login_host="localhost" login_user=root login_password='{{ mysql_root_password}}'
+  with_items: mysql_users
+
+# use ignore error below.  the reason being that for provisions, the mysql password for root may have already changed, will need to implement a more graceful solution later
+- name: Setup percona users
+  shell: mysql -uroot  -p{{mysql_root_password}} -e "{{item}}"
+  with_items:
+    - FLUSH PRIVILEGES;
+
+- name: Bootstrap restart pxc
+  shell: /etc/init.d/mysql restart-bootstrap
+
+- name: Install qpress for mysql restores
+  apt: package=qpress state=present

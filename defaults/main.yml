@@ -1,0 +1,6 @@
+mysql_port: 3306
+innobase_buffer_pool_size: "4G"
+innodb_log_file_size: "256M"
+clustercheck_port: 9200
+env: dev
+mysql_users: ""
