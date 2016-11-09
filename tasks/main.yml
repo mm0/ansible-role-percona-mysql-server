@@ -1,5 +1,6 @@
 - name: Install Percona repository (Debian)
   apt_key: keyserver=keys.gnupg.net id=1C4CBDCDCD2EFD2A state=present
+  become: yes
 
 - name: Setup percona repository
   apt_repository: repo="{{ item }}" state=present update_cache=yes
