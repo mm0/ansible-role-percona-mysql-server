@@ -15,7 +15,6 @@
   with_items:
     - percona-xtradb-cluster-server-5.5
     - percona-xtradb-cluster-client-5.5
-    - percona-xtradb-cluster-55
     - percona-xtrabackup
     - percona-toolkit
 
