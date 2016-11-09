@@ -1,9 +1,5 @@
-- name: Copy percona GPG key
-  copy: src=percona-gpg-key dest=/tmp/percona-gpg-key 
-
-- name: Add to apt-key
-  apt_key: file=/tmp/percona-gpg-key
-  become: yes
+- name: Install Percona repository (Debian)
+  apt_key: keyserver=keys.gnupg.net id=1C4CBDCDCD2EFD2A state=present
 
 - name: Setup percona repository
   apt_repository: repo="{{ item }}" state=present update_cache=yes
