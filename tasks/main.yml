@@ -10,7 +10,7 @@
     - deb-src http://repo.percona.com/apt trusty main
 
 - name: Install percona-xtradb-cluster-server-5.5 & toolkit
-  apt: package="{{ item }}" state=present update_cache=yes force=yes
+  apt: package="{{ item }}" state=present update_cache=yes force=yes allow_unauthenticated=yes
   become: yes
   with_items:
     - percona-xtradb-cluster-server-5.5
