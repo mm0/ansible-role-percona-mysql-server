@@ -1,5 +1,5 @@
 - name: Install Percona repository (Debian)
-  apt_key: keyserver=keys.gnupg.net id=1C4CBDCDCD2EFD2A state=present
+  apt_key: keyserver=keys.gnupg.net id=8507EFA5 state=present
   become: yes
 
 - name: Setup percona repository
