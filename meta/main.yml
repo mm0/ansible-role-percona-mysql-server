@@ -38,9 +38,9 @@ galaxy_info:
   #  versions:
   #  - all
   #  - any
-   - name: Debian
-     versions:
-     - all
+  # - name: Debian
+  #   versions:
+  #   - all
   #  - etch
   #  - lenny
   #  - squeeze
