@@ -9,6 +9,10 @@
     - "deb http://repo.percona.com/apt {{ ansible_distribution_release }} main"
     - "deb-src http://repo.percona.com/apt {{ ansible_distribution_release }} main"
 
+- name: Conf dir
+  file: dest=/etc/mysql mode=0777 state=directory
+  become: yes
+
 - name: Send percona my.cnf
   template: src=my.cnf.j2 dest=/etc/mysql/my.cnf
   become: yes
