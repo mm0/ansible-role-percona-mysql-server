@@ -30,6 +30,8 @@ wsrep_causal_reads: 0,
 mysql_users: "{{  mysql_users }}"
 ```
 
+**Note:** In order to bootstrap the first server, set wsrep_cluster_address to "gcomm://".  Otherwise server and cluster will fail to start
+
 
 Dependencies
 ---
