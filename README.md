@@ -82,7 +82,7 @@ Example Playbook
         - name: "backup"
             host: "localhost"
   roles:
-    - { role: ansible-role-percona-mysql-server,
+    - { role: mm0.percona-mysql-server,
             server_id: 12345678,
             wsrep_cluster_address: "gcomm://127.0.0.1",
             wsrep_cluster_name:  mysqlcluser,
