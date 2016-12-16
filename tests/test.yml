@@ -39,17 +39,17 @@
       priv: "*.*:SELECT"
   roles:
   - { role: ansible-role-percona-mysql-server,
-            server_id: 12345678,
-            wsrep_cluster_address: "gcomm://127.0.0.1",
-            wsrep_cluster_name:  mysqlcluser,
-            wsrep_sst_auth: "sst:{{ sst_password }}",
-            only_from: "127.0.0.1",
-            mysql_port: 3306,
-            innodb_log_file_size: "5M",
-            innobase_buffer_pool_size: "1G",
-            clustercheck_port: 9500,
-            wsrep_sync_wait: 0,
-            wsrep_causal_reads: 0,
-            mysql_users: "{{  mysql_users }}",
-            mysql_root_password: "password"
-      }
+      server_id: 12345678,
+      wsrep_cluster_address: "gcomm://",
+      wsrep_cluster_name:  mysqlcluser,
+      wsrep_sst_auth: "sst:{{ sst_password }}",
+      only_from: "127.0.0.1",
+      mysql_port: 3306,
+      innodb_log_file_size: "5M",
+      innobase_buffer_pool_size: "1G",
+      clustercheck_port: 9500,
+      wsrep_sync_wait: 0,
+      wsrep_causal_reads: 0,
+      mysql_users: "{{  mysql_users }}",
+      mysql_root_password: "password"
+    }

@@ -2,7 +2,7 @@
 galaxy_info:
   author: Matt Margolin
   description: "
-    An Ansible role that installs and configures Percona MySQL Server
+    An Ansible role that installs and configures Percona MySQL Cluster
 "
   company:
   license: BSD

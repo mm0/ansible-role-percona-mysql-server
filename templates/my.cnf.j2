@@ -1,106 +1,106 @@
 [client]
-port		                = {{ mysql_port }}
-socket		              = /var/run/mysqld/mysqld.sock
-user                    = root
-password                = {{ mysql_root_password }}
+port = {{ mysql_port }}
+socket = /var/run/mysqld/mysqld.sock
+user = root
+password = {{ mysql_root_password }}
 
 [mysqld_safe]
-socket		              = /var/run/mysqld/mysqld.sock
-nice		                = 0
+socket = /var/run/mysqld/mysqld.sock
+nice = 0
 
 [mysqld]
 skip_name_resolve
 
-user                    = mysql
-pid-file                = /var/run/mysqld/mysqld.pid
-socket	                = /var/run/mysqld/mysqld.sock
-port	                  =  {{ mysql_port }}
-basedir	                = /usr
-datadir	                = /var/lib/mysql
-tmpdir		              = /tmp
-lc_messages_dir	        = /usr/share/mysql
+user = mysql
+pid-file = /var/run/mysqld/mysqld.pid
+socket = /var/run/mysqld/mysqld.sock
+port = {{ mysql_port }}
+basedir = /usr
+datadir = /var/lib/mysql
+tmpdir = /tmp
+lc_messages_dir = /usr/share/mysql
 
-key_buffer_size		      = 16M
-max_allowed_packet	    = 64M
-thread_stack		        = 192K
-thread_cache_size       = 128
-myisam-recover          = BACKUP
-max_connections         = 2500
-table_open_cache        = 4096
-table_definition_cache  = 4096
-binlog_cache_size       = 1M
-tmp_table_size          = 64M
-max_heap_table_size     = 64M
-join_buffer_size        = 256K
+key_buffer_size = 16M
+max_allowed_packet = 64M
+thread_stack = 192K
+thread_cache_size = 128
+myisam-recover = BACKUP
+max_connections = 2500
+table_open_cache = 4096
+table_definition_cache = 4096
+binlog_cache_size = 1M
+tmp_table_size = 64M
+max_heap_table_size = 64M
+join_buffer_size = 256K
 
 # Logs
-log_error               = /var/log/mysql/error.log
-slow_query_log		      = ON
-slow_query_log_file	     = /var/log/mysql/mysql-slow.log
-log_slow_verbosity      = full
-long_query_time         = 1
+log_error = /var/log/mysql/error.log
+slow_query_log = ON
+slow_query_log_file = /var/log/mysql/mysql-slow.log
+log_slow_verbosity = full
+long_query_time = 1
 log_queries_not_using_indexes = 0
 
 # server_id can be the same on all nodes in a cluster
 # or it can be different.
-server_id               = {{ server_id }} 
+server_id = {{ server_id }}
 
 # Adjust these based on your need for binlog rotation
 #
-log_bin			            = /var/log/mysql/mysql-bin.log
-expire_logs_days	      = 10
-max_binlog_size         = 100M
-log_slave_updates       = 1
-net_write_timeout       = 5000
-max_allowed_packet      = 128M
+log_bin = /var/log/mysql/mysql-bin.log
+expire_logs_days = 10
+max_binlog_size = 100M
+log_slave_updates = 1
+net_write_timeout = 5000
+max_allowed_packet = 128M
 
 
 # InnoDB configuration
 #
-innodb_file_per_table          = 1
-innodb_buffer_pool_size        = {{ innobase_buffer_pool_size }}
-innodb_buffer_pool_instances   = 6
-innodb_stats_on_metadata       = 0
-innodb_old_blocks_time         = 1000
-innodb_io_capacity             = 400
-innodb_flush_method            = O_DIRECT
+innodb_file_per_table = 1
+innodb_buffer_pool_size = {{ innobase_buffer_pool_size }}
+innodb_buffer_pool_instances = 6
+innodb_stats_on_metadata = 0
+innodb_old_blocks_time = 1000
+innodb_io_capacity = 400
+innodb_flush_method = O_DIRECT
 innodb_flush_log_at_trx_commit = 0
-innodb_log_file_size           = {{ innodb_log_file_size }}
-innodb_log_buffer_size         = 8M
-innodb_purge_threads           = 1
+innodb_log_file_size = {{ innodb_log_file_size }}
+innodb_log_buffer_size = 8M
+innodb_purge_threads = 1
 
 
 # Galera-specific requirements
 #
-default_storage_engine         = InnoDB
-query_cache_size               = 16M
-query_cache_type               = 1
-binlog_format                  = ROW
-wsrep_cluster_name             = {{ wsrep_cluster_name }} 
-wsrep_cluster_address          = {{ wsrep_cluster_address }} 
-wsrep_provider                 = /usr/lib/libgalera_smm.so
-wsrep_sst_method               = xtrabackup-v2
-wsrep_sst_auth                 = {{ wsrep_sst_auth }}
+default_storage_engine = InnoDB
+query_cache_size = 16M
+query_cache_type = 1
+binlog_format = ROW
+wsrep_cluster_name = {{ wsrep_cluster_name }}
+wsrep_cluster_address = {{ wsrep_cluster_address }}
+wsrep_provider = /usr/lib/libgalera_smm.so
+wsrep_sst_method = xtrabackup-v2
+wsrep_sst_auth = {{ wsrep_sst_auth }}
 innodb_locks_unsafe_for_binlog = 1
-innodb_autoinc_lock_mode       = 2
+innodb_autoinc_lock_mode = 2
 
 # Other Galera & tuning notes
-wsrep_provider_options         = "gcache.size=1G;gcs.fc_master_slave=YES;gcs.fc_limit=384"
-wsrep_slave_threads            = 1
+wsrep_provider_options = "gcache.size=1G;gcs.fc_master_slave=YES;gcs.fc_limit=384"
+wsrep_slave_threads = 1
 
 # ***** WARNING *****
 # remove ALL OF THESE after the cluster goes standalone.
 #
-wsrep_causal_reads = {{ wsrep_causal_reads }} 
+wsrep_causal_reads = {{ wsrep_causal_reads }}
 wsrep_auto_increment_control = OFF
-auto_increment_increment     = 1
-auto_increment_offset        = 1
-wsrep_sync_wait    = {{ wsrep_sync_wait }}
+auto_increment_increment = 1
+auto_increment_offset = 1
+wsrep_sync_wait = {{ wsrep_sync_wait }}
 
 [mysqldump]
 quick
 quote-names
-max_allowed_packet	= 64M
+max_allowed_packet = 64M
 
 [mysql]
 #no-auto-rehash	# faster start of mysql but no tab completition
