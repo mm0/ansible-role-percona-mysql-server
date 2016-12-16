@@ -9,6 +9,10 @@
     - "deb http://repo.percona.com/apt {{ ansible_distribution_release }} main"
     - "deb-src http://repo.percona.com/apt {{ ansible_distribution_release }} main"
 
+- name: Send percona my.cnf
+  template: src=my.cnf.j2 dest=/etc/mysql/my.cnf
+  become: yes
+
 - name: "Install percona-xtradb-cluster-server-{{ mysql_version }} & toolkit"
   apt: package="{{ item }}" state=present update_cache=yes force=yes allow_unauthenticated=yes
   become: yes
@@ -18,9 +22,6 @@
     - percona-xtrabackup
     - percona-toolkit
 
-- name: Send percona my.cnf
-  template: src=my.cnf.j2 dest=/etc/mysql/my.cnf 
-  become: yes
 
 - name: Send mysqlchk
   template: src=mysqlchk.j2 dest=/etc/xinetd.d/mysqlchk
