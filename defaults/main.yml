@@ -4,3 +4,4 @@ innodb_log_file_size: "256M"
 clustercheck_port: 9200
 env: dev
 mysql_users: ""
+mysql_version: "5.6"

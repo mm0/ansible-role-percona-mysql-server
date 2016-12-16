@@ -9,12 +9,12 @@
     - deb http://repo.percona.com/apt trusty main
     - deb-src http://repo.percona.com/apt trusty main
 
-- name: Install percona-xtradb-cluster-server-5.5 & toolkit
+- name: "Install percona-xtradb-cluster-server-{{ mysql_version }} & toolkit"
   apt: package="{{ item }}" state=present update_cache=yes force=yes allow_unauthenticated=yes
   become: yes
   with_items:
-    - percona-xtradb-cluster-server-5.5
-    - percona-xtradb-cluster-client-5.5
+    - "percona-xtradb-cluster-server-{{ mysql_version }}"
+    - "percona-xtradb-cluster-client-{{ mysql_version }}"
     - percona-xtrabackup
     - percona-toolkit
 
