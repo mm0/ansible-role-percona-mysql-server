@@ -25,6 +25,7 @@
     - "percona-xtradb-cluster-client-{{ mysql_version }}"
     - percona-xtrabackup
     - percona-toolkit
+    - python-mysqldb # required for ansible mysql module
 
 
 - name: Send mysqlchk
