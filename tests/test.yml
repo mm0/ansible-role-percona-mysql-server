@@ -44,6 +44,7 @@
       wsrep_cluster_name:  mysqlcluser,
       wsrep_sst_auth: "sst:{{ sst_password }}",
       only_from: "127.0.0.1",
+      mysql_version: "5.5", # currently, 5.6 is not testable as it has a bug with the mysql_install_db command
       mysql_port: 3306,
       innodb_log_file_size: "5M",
       innobase_buffer_pool_size: "1G",
