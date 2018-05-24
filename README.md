@@ -15,6 +15,9 @@ Role Variables
 
 Available variables are listed below, there are no defaults:
 
+set `percona_use_cluster: false` in order to run as a standalone server, otherwise it will attempt to connect to a cluster upon installation
+
+
 ```yml
 server_id: 12345678,
 wsrep_cluster_address: "gcomm://127.0.0.1",

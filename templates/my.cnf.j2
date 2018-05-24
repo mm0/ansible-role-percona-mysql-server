@@ -76,14 +76,15 @@ default_storage_engine = InnoDB
 query_cache_size = 16M
 query_cache_type = 1
 binlog_format = ROW
+innodb_locks_unsafe_for_binlog = 1
+innodb_autoinc_lock_mode = 2
+
+{% if percona_use_cluster %}
 wsrep_cluster_name = {{ wsrep_cluster_name }}
 wsrep_cluster_address = {{ wsrep_cluster_address }}
 wsrep_provider = /usr/lib/libgalera_smm.so
 wsrep_sst_method = xtrabackup-v2
 wsrep_sst_auth = {{ wsrep_sst_auth }}
-innodb_locks_unsafe_for_binlog = 1
-innodb_autoinc_lock_mode = 2
-
 # Other Galera & tuning notes
 wsrep_provider_options = "gcache.size=1G;gcs.fc_master_slave=YES;gcs.fc_limit=384"
 wsrep_slave_threads = 1
@@ -96,6 +97,7 @@ wsrep_auto_increment_control = OFF
 auto_increment_increment = 1
 auto_increment_offset = 1
 wsrep_sync_wait = {{ wsrep_sync_wait }}
+{% endif %}
 
 [mysqldump]
 quick
